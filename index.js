@@ -125,6 +125,6 @@ app.post('upload', (req, res) => {
 // })
 
 app.listen(PORT, () => {
-    console.log`Server is running at http://${HOST}:${PORT}`);
+    console.log(`Server is running at http://${HOST}:${PORT}`);
 });
 
