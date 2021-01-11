@@ -76,7 +76,7 @@ const HOST = 'localhost';
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/publicMulter/myUpload')
+        cb(null, 'publicMulter/myUpload')
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
@@ -87,6 +87,7 @@ var storage = multer.diskStorage({
 var upload = multer({
     storage: storage,
 }).single('myimage')
+
 
 //set up for ejs
 app.set('view engine', 'ejs');
@@ -102,7 +103,7 @@ app.get('/', function (req, res) {
 })
 
 //Desc 
-app.post('/upload', (req, res) => {
+app.post('upload', (req, res) => {
     upload(req, res, error => {
         console.log(req.file);
         if (error) {
@@ -110,15 +111,20 @@ app.post('/upload', (req, res) => {
                 message: error
             })
         } else {
-            res.render("index",{
-                message: 'successfully uploaded....',
-                filename:`myUpload/${req.file.filename}`
+            res.render("index", {
+                message: 'Successfully uploaded....',
+                filename: `myUpload/${req.file.filename}`
             })
         }
     })
 })
 
+// app.post('/upload' upload.single("myimage"), (req, res, next) => {
+//     var fileinfo = req.file;
+//     res.send(fileinfo)
+// })
+
 app.listen(PORT, () => {
-    console.log(`Server is running at http://${HOST}:${PORT}`);
+    console.log`Server is running at http://${HOST}:${PORT}`);
 });
 
